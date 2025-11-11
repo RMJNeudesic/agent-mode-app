@@ -18,7 +18,7 @@ import os
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from .views import UserViewSet, TeamViewSet, ActivityViewSet, LeaderboardViewSet, WorkoutViewSet
+from .views import UserViewSet, TeamViewSet, ActivityViewSet, LeaderboardViewSet, WorkoutViewSet, health_check, echo
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -42,6 +42,8 @@ def api_root(request):
         'activities': f'{base_url}/activities/',
         'leaderboard': f'{base_url}/leaderboard/',
         'workouts': f'{base_url}/workouts/',
+        'health': f'{base_url}/health/',
+        'echo': f'{base_url}/echo/',
     })
 
 from django.http import HttpResponseRedirect
@@ -54,4 +56,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api-root'),
     path('api/', include(router.urls)),
+    path('api/health/', health_check, name='health-check'),
+    path('api/echo/', echo, name='echo'),
 ]
